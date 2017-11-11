@@ -6,7 +6,7 @@ from flask import request
 import jsonify
 from collections import Counter
 from utils import makeResponse,check
-from flask.ext.cors import CORS 
+from flask.ext.cors import CORS
 
 client = MongoClient('localhost', 27017)
 db = client['movies']
@@ -35,7 +35,7 @@ def searchbyQuery():
 	doc =[]
 	for s in table.find({body['field']:{"$regex": body['query']}},{"_id":False}).limit(10):
 		doc.append(s)
-	return  json.dumps({"result":doc})
+	return  makeResponse({"result":doc})
 
 
 
