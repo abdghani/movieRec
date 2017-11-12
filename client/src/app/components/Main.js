@@ -5,16 +5,12 @@ import SearchBar from './Searchbar';
 import Details from './comps/Details';
 
 class Main extends Component {
-
-
-
   render() {
-
     return (
-      <div className="main ui container">
+      <div className="main ui container appWidth">
             <Segment clearing>
-                <Header  as='h1' textAlign='center'>
-                    MOVIES
+                <Header  as='h1' textAlign='left'>
+                    MOVIE MANIA
                 </Header>
             </Segment>
             <SearchBar />

@@ -17,19 +17,17 @@ CORS(app)
 def hello_world():
     return 'Hello World!'
 
-@app.route('/searchbyImdb',methods=['POST'])
+@app.route('/searchbyId',methods=['POST'])
 def searchbyImdb():
-	# dataDict = json.loads(request.data)
 	body =json.loads(request.data)
-
-	doc = db.moviesnewfinal.find_one({"imdb_id":body['imdb_id']},{"_id":False})
-	return  json.dumps({"result":doc})
+	doc = db.movie.find_one({"id":body['id']},{"_id":False})
+	return makeResponse({"result":doc})
 
 
 @app.route('/searchbyQuery',methods=['POST'])
 def searchbyQuery():
 	# dataDict = json.loads(request.data)
-	table = db.moviesnewfinal
+	table = db.movie
 	body =json.loads(request.data)
 	print(body['query'])
 	doc =[]
@@ -41,14 +39,14 @@ def searchbyQuery():
 
 @app.route('/search',methods=['POST'])
 def search():
-	table = db.moviesnewfinal
+	table = db.movie
 	doc=[]
 	for s in table.find({},{"_id":False,"production_companies":True}):
 		for t in s["production_companies"]:
 			doc.append(t)
 	doc = Counter(doc)
 	print(type(doc))
-	return  json.dumps({"result":doc})
+	return  makeResponse({"result":doc})
 
 
 @app.route('/genres')
@@ -66,7 +64,7 @@ def production_companies():
 
 @app.route('/searchbyCharacter',methods=['POST'])
 def searchbyCharacter():
-	table = db.moviesnewfinal
+	table = db.movie
 	body =json.loads(request.data)
 	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}
 	doc =[]
@@ -81,7 +79,7 @@ def searchbyCharacter():
 
 @app.route('/searchbyPage',methods=['POST'])
 def searchbyPage():
-	table = db.moviesnewfinal
+	table = db.movie
 	body =json.loads(request.data)
 	doc = []
 	p = body['page']
@@ -103,7 +101,7 @@ def searchbyPage():
 
 @app.route('/searchbyPageGenres',methods=['POST'])
 def searchbyPageGenres():
-	table = db.moviesnewfinal
+	table = db.movie
 	body =json.loads(request.data)
 	p = body['page']
 	l = body['limit']

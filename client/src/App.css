@@ -31,8 +31,22 @@
 
 body{
   /*background-color: #e5cdcd;*/
+  width: 101%
+}
+.appWidth {
+  min-width: 1260px;
 }
 
 .mainHeight{
   height:700px
+}
+.cardClass{
+  margin:10px;
+}
+
+.mar10{
+  margin:10px;
+}
+.marleft30{
+  margin-left: 30px;
 }
