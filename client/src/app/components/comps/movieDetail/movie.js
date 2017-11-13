@@ -34,13 +34,12 @@ class Movie extends Component{
                 return (
                     <div  className="cardClass">
                       <Card
-                          image='https://image.tmdb.org/t/p/w500/fPU0SAQCZN4PHEKzM95SO70LghU.jpg'
+                          image={`https://image.tmdb.org/t/p/w500`+`${movie.backdrop_path}`}
                           header={movie.name}
                           description={movie.description.substring(0,200)+".."}
                           meta={'Release '+movie.release_date}
                           extra={
                             <div>
-                            <hr />
                               <span className="mar10">
                                 <a>
                                   <Icon name='thumbs up' />
@@ -54,7 +53,7 @@ class Movie extends Component{
                                 </a>
                               </span>
                               <span className="marleft30">
-                              <Link to={`/detail/${movie.imdb_id}`}>
+                              <Link to={`/detail/${movie.id}`}>
                                   <Icon name='arrow right' />
                               </Link>
                               </span>

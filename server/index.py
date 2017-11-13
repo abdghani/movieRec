@@ -31,7 +31,7 @@ def searchbyQuery():
 	body =json.loads(request.data)
 	print(body['query'])
 	doc =[]
-	for s in table.find({body['field']:{"$regex": body['query']}},{"_id":False}).limit(10):
+	for s in table.find({body['field']:{"$regex": body['query']}},{"_id":False}).limit(12):
 		doc.append(s)
 	return  makeResponse({"result":doc})
 
@@ -69,11 +69,11 @@ def searchbyCharacter():
 	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}
 	doc =[]
 	if "filter" not in body or len(body["filter"])==0:
-		for s in table.find(condition,{"_id":False}).limit(10):
+		for s in table.find(condition,{"_id":False}).limit(12):
 			doc.append(s)
 
 	else:
-		for s in table.find(condition,check(body['filter'])).limit(10):
+		for s in table.find(condition,check(body['filter'])).limit(12):
 			doc.append(s)
 	return  makeResponse(doc)
 

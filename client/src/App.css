@@ -50,3 +50,16 @@ body{
 .marleft30{
   margin-left: 30px;
 }
+.rows .row {
+   display: inline-block;
+}
+.width200{
+  width: 500px;
+  float: left;
+}
+.tabHeight{
+  height: 300px
+}
+.myImage{
+  margin-top: 50px
+}
