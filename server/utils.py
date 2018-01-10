@@ -24,10 +24,12 @@ def check(data):
 	"revenue":False,
 	"runtime":False,
 	"imdb_id":False,
-	"adult":False,	
-	"language":False
+	"adult":False,
+	"language":False,
+	"backdrop_path":False,
+    "id": False
 	}
-	for ele in data:
-		if ele in dict:
-			del dict[ele]
+	if data in dict:
+		del dict[data]
+	print(dict,data)
 	return dict
