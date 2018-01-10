@@ -83,7 +83,21 @@ def searchbyPage():
 			doc.append(s)
 
 	return  makeResponse(doc)
-
+	
+@app.route('/searchbyCharacter',methods=['POST'])		
+def searchbyCharacter():		
+	table = db.movie		
+	body =json.loads(request.data)		
+	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}		
+	doc =[]		
+	if "filter" not in body or len(body["filter"])==0:		
+		for s in table.find(condition,{"_id":False}).limit(12):		
+			doc.append(s)		
+		
+	else:		
+		for s in table.find(condition,check(body['filter'])).limit(12):		
+			doc.append(s)		
+	return  makeResponse(doc)
 
 @app.route('/searchbyPageQuery',methods=['POST'])
 def searchbyPageGenres():
