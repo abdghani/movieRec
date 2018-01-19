@@ -89,11 +89,11 @@ def searchbyCharacter():
 	else:
 		limit=12
 	if "filter" not in body or len(body["filter"])==0:
-		for s in table.find(condition,{"_id":False}).limit(12):
+		for s in table.find(condition,{"_id":False}).limit(limit):
 			doc.append(s)
 
 	else:
-		for s in table.find(condition,check(body['filter'])).limit(12):
+		for s in table.find(condition,check(body['filter'])).limit(limit):
 			doc.append(s)
 	return  makeResponse(doc)
 
