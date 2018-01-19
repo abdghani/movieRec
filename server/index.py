@@ -17,13 +17,13 @@ CORS(app)
 @app.route('/searchbyId',methods=['POST'])
 def searchbyId():
 	body =json.loads(request.data)
-	doc = db.movies.find_one({"id":body['id']},{"_id":False})
+	doc = db.movie.find_one({"id":body['id']},{"_id":False})
 	return makeResponse({"result":doc})
 
 
 @app.route('/searchbyQuery',methods=['POST'])
 def searchbyQuery():
-	table = db.movies
+	table = db.movie
 	body =json.loads(request.data.decode('utf-8'))
 	print(body['query'])
 	doc =[]
@@ -35,7 +35,7 @@ def searchbyQuery():
 
 @app.route('/search',methods=['POST'])
 def search():
-	table = db.movies
+	table = db.movie
 	doc=[]
 	for s in table.find({},{"_id":False,"production_companies":True}):
 		for t in s["production_companies"]:
@@ -60,7 +60,7 @@ def production_companies():
 
 @app.route('/searchbyPage',methods=['POST'])
 def searchbyPage():
-	table = db.movies
+	table = db.movie
 	body =json.loads(request.data.decode('utf-8'))
 	doc = []
 	p = body['page']
@@ -80,7 +80,7 @@ def searchbyPage():
 
 @app.route('/searchbyCharacter',methods=['POST'])
 def searchbyCharacter():
-	table = db.movies
+	table = db.movie
 	body =json.loads(request.data.decode('utf-8'))
 	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}
 	doc =[]
@@ -89,17 +89,17 @@ def searchbyCharacter():
 	else:
 		limit=12
 	if "filter" not in body or len(body["filter"])==0:
-		for s in table.find(condition,{"_id":False}).limit(limit):
+		for s in table.find(condition,{"_id":False}).limit(12):
 			doc.append(s)
 
 	else:
-		for s in table.find(condition,check(body['filter'])).limit(limit):
+		for s in table.find(condition,check(body['filter'])).limit(12):
 			doc.append(s)
 	return  makeResponse(doc)
 
 @app.route('/searchbyPageQuery',methods=['POST'])
 def searchbyPageGenres():
-	table = db.movies
+	table = db.movie
 	body =json.loads(request.data.decode('utf-8'))
 	p = body['page']
 	l = body['limit']
