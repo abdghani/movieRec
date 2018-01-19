@@ -1,5 +1,5 @@
 var request = require('superagent');
-var apiserverUrl = 'http://api.movies.greyphase.xyz';
+var apiserverUrl = 'http://api.movies.wittybox.xyz';
 
 var apiService = {
   get: function(url) {
