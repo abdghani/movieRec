@@ -12,12 +12,6 @@ db = client['movies']
 app = Flask(__name__)
 CORS(app)
 
-#basic testing
-
-@app.route('/')
-def hello_world():
-    basic.hello_worldss();
-    return 'Hello World'
 
 
 @app.route('/searchbyId',methods=['POST'])
