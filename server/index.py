@@ -30,7 +30,7 @@ def searchbyId():
 @app.route('/searchbyQuery',methods=['POST'])
 def searchbyQuery():
 	table = db.movie
-	body =json.loads(request.data)
+	body =json.loads(request.data.decode('utf-8'))
 	print(body['query'])
 	doc =[]
 	for s in table.find({body['field']:{"$regex": body["query"],"$options":"i"}},{"_id":False}).limit(12):
@@ -67,7 +67,7 @@ def production_companies():
 @app.route('/searchbyPage',methods=['POST'])
 def searchbyPage():
 	table = db.movie
-	body =json.loads(request.data)
+	body =json.loads(request.data.decode('utf-8'))
 	doc = []
 	p = body['page']
 	l = body['limit']
@@ -87,7 +87,7 @@ def searchbyPage():
 @app.route('/searchbyCharacter',methods=['POST'])		
 def searchbyCharacter():		
 	table = db.movie		
-	body =json.loads(request.data)		
+	body =json.loads(request.data.decode('utf-8'))		
 	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}		
 	doc =[]		
 	if "filter" not in body or len(body["filter"])==0:		
@@ -102,7 +102,7 @@ def searchbyCharacter():
 @app.route('/searchbyPageQuery',methods=['POST'])
 def searchbyPageGenres():
 	table = db.movie
-	body =json.loads(request.data)
+	body =json.loads(request.data.decode('utf-8'))
 	p = body['page']
 	l = body['limit']
 	totalData = table.count()
