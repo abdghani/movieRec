@@ -83,20 +83,24 @@ def searchbyPage():
 			doc.append(s)
 
 	return  makeResponse(doc)
-	
-@app.route('/searchbyCharacter',methods=['POST'])		
-def searchbyCharacter():		
-	table = db.movie		
-	body =json.loads(request.data.decode('utf-8'))		
-	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}		
-	doc =[]		
-	if "filter" not in body or len(body["filter"])==0:		
-		for s in table.find(condition,{"_id":False}).limit(12):		
-			doc.append(s)		
-		
-	else:		
-		for s in table.find(condition,check(body['filter'])).limit(12):		
-			doc.append(s)		
+
+@app.route('/searchbyCharacter',methods=['POST'])
+def searchbyCharacter():
+	table = db.movie
+	body =json.loads(request.data.decode('utf-8'))
+	condition ={"name":{"$regex": '^'+body['query'] , '$options' : 'i'}}
+	doc =[]
+	if(body['limit']):
+		limit = body['limit']
+	else:
+		limit=12
+	if "filter" not in body or len(body["filter"])==0:
+		for s in table.find(condition,{"_id":False}).limit(12):
+			doc.append(s)
+
+	else:
+		for s in table.find(condition,check(body['filter'])).limit(12):
+			doc.append(s)
 	return  makeResponse(doc)
 
 @app.route('/searchbyPageQuery',methods=['POST'])

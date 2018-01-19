@@ -41,20 +41,13 @@ class Details extends Component {
                         MOVIE
                       </Menu.Item>
                     </Link>
-                    <Link to="/genre">
-                      <Menu.Item name='genre'>
-                        <Icon name='tasks' />
-                        GENRE
-                      </Menu.Item>
-                    </Link>
                   </Sidebar>
+
                   <Sidebar.Pusher>
                     <Segment basic>
                         <Route exact path="/" render={() => (<Redirect to="/movie"/>)}/>
                         <Route exact path="/movie" component={Movie}/>
-                        <Route path="/genre" component={Genre}/>
                         <Route path="/detail/:id" component={MovieDetil}/>
-
                     </Segment>
                   </Sidebar.Pusher>
 
@@ -65,3 +58,11 @@ class Details extends Component {
   }
 }
 export default Details
+
+// <Link to="/genre">
+//   <Menu.Item name='genre'>
+//     <Icon name='tasks' />
+//     GENRE
+//   </Menu.Item>
+// </Link>
+// <Route path="/genre" component={Genre}/>
